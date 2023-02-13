@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Todo</title>
+</head>
+<body>
+<style>
+.container {
+    display: block;
+    width: 400px;
+    margin: 50px auto 0;
+}
+body {
+    background: #fff;
+    color: #333;
+    font-family: Lato, sans-serif;
+}
+.add{
+    color: #A5D6D9;
+}
+.todo{
+    color: #9C1A1C;
+}
+.completed-tasks  {
+    text-decoration: line-through;
+    color: #888;
+}
+</style>
+<div class="container">
+<div class="add">
+<h1>Add</h1>
+<input type="text" maxlength="50" id="newtask"><button onclick="add()">Add</button>
+<hr>
+</div>
+<div class="todo">
+<h1>Todo</h1>
+<hr>
+<ul >
+    {% for todo in todos %}
+        {% if not todo.done %}
+
+            <li id="{{ todo.id }}"><input type="checkbox" onclick='finish({{todo.id}})'>{{ todo.text }},{{ todo.date }}</li>
+        {% endif %}
+    {% endfor %}
+</ul>
+</div>
+<h1>Finished</h1>
+<hr>
+<ul >
+{% for todo in todos %}
+        {% if  todo.done %}
+
+            <li id="{{ todo.id }}" ><hn class="completed-tasks">{{ todo.text }},{{ todo.date }}</hn><input type="checkbox" onclick='del({{ todo.id }})'><em>del</em></li>
+        {% endif %}
+    {% endfor %}
+</ul>
+</div>
+</body>
+<script>
+let add=function()
+{
+    let newtask=document.getElementById("newtask");
+    let postForm = document.createElement("form")
+    postForm.method = "post"
+    postForm.action = "/add"
+    let inputText = document.createElement("input")
+    inputText.setAttribute("name", "text")
+    inputText.setAttribute("value", newtask.value)
+    postForm.appendChild(inputText)
+    document.body.appendChild(postForm)
+    postForm.submit()
+    document.body.removeChild(postForm)
+}
+let finish=function (id)
+{
+    let postForm = document.createElement("form")
+    postForm.method = "post"
+    postForm.action = "/finished"
+
+
+    let inputText = document.createElement("input")
+    inputText.setAttribute("name", "id")
+    inputText.setAttribute("value", id)
+    postForm.appendChild(inputText)
+    document.body.appendChild(postForm)
+    postForm.submit()
+    document.body.removeChild(postForm)
+}
+let del=function (id)
+{
+    let postForm = document.createElement("form")
+    postForm.method = "post"
+    postForm.action = "/delete"
+
+
+    let inputText = document.createElement("input")
+    inputText.setAttribute("name", "id")
+    inputText.setAttribute("value", id)
+    postForm.appendChild(inputText)
+    document.body.appendChild(postForm)
+    postForm.submit()
+    document.body.removeChild(postForm)
+}
+
+</script>
+</html>

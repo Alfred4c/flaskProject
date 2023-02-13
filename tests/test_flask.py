@@ -1,4 +1,4 @@
-import pytest
+import pytest, requests
 
 from app import *
 

@@ -1,6 +1,6 @@
 import pytest, requests
 
-from flaskProject.app import *
+from app import *
 
 
 class Test_flask:

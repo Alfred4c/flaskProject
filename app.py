@@ -6,7 +6,7 @@ from flask_sqlalchemy import SQLAlchemy
 app = Flask(__name__)
 app.config[
     "SQLALCHEMY_DATABASE_URI"
-] = r"mysql+pymysql://root:123456@127.0.0.1:3306/flask"
+] = "mysql+pymysql://root:123456@127.0.0.1:3306/flask"
 db = SQLAlchemy(app)
 app.config["SQLALCHEMY_COMMIT_ON_TEARDOWN"] = True
 

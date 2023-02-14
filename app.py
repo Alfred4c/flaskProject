@@ -1,21 +1,18 @@
-from datetime import datetime
-
 from flask import Flask, abort, redirect, render_template, request
 from flask_sqlalchemy import SQLAlchemy
+import os
 
 app = Flask(__name__)
-app.config[
-    "SQLALCHEMY_DATABASE_URI"
-] = "mysql+pymysql://root:123456@127.0.0.1:3306/flask"
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+DATABASE_FILE = "sqlite:///{}".format(os.path.join(BASE_DIR, "todo.db"))
+app.config["SQLALCHEMY_DATABASE_URI"] = DATABASE_FILE
 db = SQLAlchemy(app)
-app.config["SQLALCHEMY_COMMIT_ON_TEARDOWN"] = True
 
 
 class Todo(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     text = db.Column(db.Text)
-    done = db.Column(db.Boolean, default=0)
-    date = db.Column(db.DateTime, default=datetime.now())
+    done = db.Column(db.Integer, default=0)
 
     def __str__(self):
         return "id:{}".format(self.id)
@@ -63,3 +60,4 @@ def index():
 if __name__ == "__main__":
     db.create_all()
     app.run(port=5000, debug=True)
+

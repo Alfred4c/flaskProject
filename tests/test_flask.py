@@ -1,7 +1,4 @@
 import pytest, requests
-import os
-
-os.chdir(os.path.abspath(os.path.dirname(os.path.dirname(__file__))))
 from app import *
 class Test_flask:
     def setup(self):

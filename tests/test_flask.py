@@ -5,6 +5,7 @@ os.chdir(os.path.abspath(os.path.dirname(os.path.dirname(__file__))))
 from app import *
 class Test_flask:
     def setup(self):
+        
         self.app = app
         app.config["TESTING"] = True
         self.client = self.app.test_client()
